@@ -163,102 +163,155 @@ const Home = () => {
       </section>
 
       {/* Skills Overview */}
-      <section className="py-24 px-6 lg:px-8">
+      <section className="py-24 px-6 lg:px-8 relative">
+        <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-green-400/10 to-blue-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-light tracking-tight text-black mb-6">
+          <AnimatedContainer animation="fade-in-up" className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-light tracking-tight text-black mb-6 font-roboto">
               Technical Skills
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-roboto">
               Full-stack expertise spanning modern web technologies, cloud platforms, and system administration.
             </p>
-          </div>
+          </AnimatedContainer>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {skills.map((category) => (
-              <Card key={category.category} className="bg-white border-gray-200 hover:shadow-md transition-all duration-200">
-                <CardContent className="p-8">
-                  <h3 className="text-xl font-medium mb-6 text-black">{category.category}</h3>
-                  <div className="space-y-3">
-                    {category.items.map((skill) => (
-                      <div key={skill} className="text-gray-600">
-                        {skill}
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+            {skills.map((category, index) => (
+              <AnimatedContainer 
+                key={category.category}
+                animation="slide-in-left"
+                delay={index * 200}
+              >
+                <Card className="bg-white/80 backdrop-blur-sm border-gray-200/50 hover:shadow-modern transition-all duration-600 hover:-translate-y-2 hover:border-gray-300/80 group h-full">
+                  <CardContent className="p-8">
+                    <h3 className="text-xl font-medium mb-6 text-black group-hover:text-gray-700 transition-colors font-roboto">
+                      {category.category}
+                    </h3>
+                    <div className="space-y-3">
+                      {category.items.map((skill, skillIndex) => (
+                        <div 
+                          key={skill} 
+                          className="text-gray-600 hover:text-black transition-colors duration-300 font-roboto transform hover:translate-x-1"
+                          style={{ animationDelay: `${skillIndex * 50}ms` }}
+                        >
+                          {skill}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </AnimatedContainer>
             ))}
           </div>
         </div>
       </section>
 
       {/* Experience Preview */}
-      <section className="py-24 px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-light tracking-tight text-black mb-6">
+      <section className="py-24 px-6 lg:px-8 bg-gradient-to-r from-gray-50/80 via-white to-gray-50/80 relative">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+        <div className="max-w-6xl mx-auto relative">
+          <AnimatedContainer animation="fade-in-up" className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-light tracking-tight text-black mb-6 font-roboto">
               Professional Experience
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-roboto">
               {experience.length}+ years of hands-on experience in software development and system administration.
             </p>
-          </div>
+          </AnimatedContainer>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {experience.slice(0, 2).map((job) => (
-              <Card key={job.id} className="bg-white border-gray-200">
-                <CardContent className="p-8">
-                  <div className="mb-4">
-                    <h3 className="text-xl font-medium text-black mb-2">{job.role}</h3>
-                    <p className="text-gray-600 mb-1">{job.company}</p>
-                    <p className="text-sm text-gray-500">{job.period}</p>
-                  </div>
-                  <p className="text-gray-600 leading-relaxed mb-4">{job.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {job.achievements.slice(0, 2).map((achievement, index) => (
-                      <Badge key={index} variant="outline" className="text-xs border-gray-300">
-                        {achievement}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+            {experience.slice(0, 2).map((job, index) => (
+              <AnimatedContainer 
+                key={job.id}
+                animation="fade-in-up"
+                delay={index * 200}
+              >
+                <Card className="bg-white/80 backdrop-blur-sm border-gray-200/50 hover:shadow-modern transition-all duration-600 hover:-translate-y-2 group h-full">
+                  <CardContent className="p-8">
+                    <div className="mb-4">
+                      <h3 className="text-xl font-medium text-black mb-2 group-hover:text-gray-700 transition-colors font-roboto">
+                        {job.role}
+                      </h3>
+                      <p className="text-gray-600 mb-1 font-roboto">{job.company}</p>
+                      <p className="text-sm text-gray-500 font-roboto">{job.period}</p>
+                    </div>
+                    <p className="text-gray-600 leading-relaxed mb-4 font-roboto">{job.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {job.achievements.slice(0, 2).map((achievement, achIndex) => (
+                        <Badge 
+                          key={achIndex} 
+                          variant="outline" 
+                          className="text-xs border-gray-300 hover:border-black transition-colors duration-300 font-roboto"
+                        >
+                          {achievement}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </AnimatedContainer>
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Button asChild variant="outline" size="lg" className="border-gray-300 hover:border-black transition-all duration-200">
+          <AnimatedContainer animation="scale-in" delay={400} className="text-center mt-12">
+            <Button 
+              asChild 
+              variant="outline" 
+              size="lg" 
+              className="border-gray-300 hover:border-black transition-all duration-400 hover:scale-105 hover:shadow-modern font-roboto"
+            >
               <Link to="/about">
                 View Full Experience
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-          </div>
+          </AnimatedContainer>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl lg:text-5xl font-light tracking-tight text-black mb-6">
-            Let's Work Together
-          </h2>
-          <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-            I'm currently available for freelance projects and full-time opportunities. Let's discuss how I can help bring your ideas to life.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild size="lg" className="bg-black text-white hover:bg-gray-800 transition-all duration-200 hover:scale-105">
-              <Link to="/contact">
-                Start a Project
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="border-gray-300 hover:border-black transition-all duration-200">
-              <a href="/resume" target="_blank">
-                Download Resume
-              </a>
-            </Button>
-          </div>
+      <section className="py-24 px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-purple-50/30" />
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
+        
+        <div className="max-w-4xl mx-auto text-center relative">
+          <AnimatedContainer animation="fade-in-up">
+            <h2 className="text-4xl lg:text-5xl font-light tracking-tight text-black mb-6 font-roboto">
+              Let's Work Together
+            </h2>
+          </AnimatedContainer>
+          
+          <AnimatedContainer animation="fade-in-up" delay={200} className="mb-12">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed font-roboto">
+              I'm currently available for freelance projects and full-time opportunities. Let's discuss how I can help bring your ideas to life.
+            </p>
+          </AnimatedContainer>
+          
+          <AnimatedContainer animation="scale-in" delay={400}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button 
+                asChild 
+                size="lg" 
+                className="bg-black text-white hover:bg-gray-800 transition-all duration-400 hover:scale-105 hover:shadow-modern-hover group font-roboto"
+              >
+                <Link to="/contact">
+                  Start a Project
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                </Link>
+              </Button>
+              <Button 
+                asChild 
+                variant="outline" 
+                size="lg" 
+                className="border-gray-300 hover:border-black transition-all duration-400 hover:scale-105 hover:shadow-modern group font-roboto"
+              >
+                <a href="/resume" target="_blank">
+                  Download Resume
+                  <Star className="ml-2 h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
+                </a>
+              </Button>
+            </div>
+          </AnimatedContainer>
         </div>
       </section>
     </div>
