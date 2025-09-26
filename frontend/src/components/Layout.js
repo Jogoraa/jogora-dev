@@ -169,15 +169,15 @@ const Layout = ({ children }) => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-50 border-t border-gray-100 mt-24">
+      <footer className="bg-gradient-to-r from-gray-50 via-gray-100 to-gray-50 border-t border-gray-200/50 mt-24">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 py-12">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-center md:text-left mb-6 md:mb-0">
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 text-sm font-roboto">
                 © 2025 Dawit Jogora. All rights reserved.
               </p>
-              <p className="text-gray-500 text-xs mt-1">
-                Built with Next.js • Deployed on Vercel
+              <p className="text-gray-500 text-xs mt-1 font-roboto">
+                Built with React • Styled with Tailwind CSS
               </p>
             </div>
             
@@ -186,26 +186,26 @@ const Layout = ({ children }) => {
                 href="https://github.com/dawitjogora"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-black transition-colors duration-200 text-sm flex items-center gap-1"
+                className="text-gray-500 hover:text-black transition-all duration-300 text-sm flex items-center gap-2 hover:scale-105 hover:-translate-y-0.5"
               >
                 <Github className="h-4 w-4" />
-                GitHub
+                <span className="font-roboto">GitHub</span>
               </a>
               <a
                 href="https://linkedin.com/in/dawitjogora"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-black transition-colors duration-200 text-sm flex items-center gap-1"
+                className="text-gray-500 hover:text-black transition-all duration-300 text-sm flex items-center gap-2 hover:scale-105 hover:-translate-y-0.5"
               >
                 <Linkedin className="h-4 w-4" />
-                LinkedIn
+                <span className="font-roboto">LinkedIn</span>
               </a>
               <a
                 href="mailto:davejogoraa@gmail.com"
-                className="text-gray-500 hover:text-black transition-colors duration-200 text-sm flex items-center gap-1"
+                className="text-gray-500 hover:text-black transition-all duration-300 text-sm flex items-center gap-2 hover:scale-105 hover:-translate-y-0.5"
               >
                 <Mail className="h-4 w-4" />
-                Email
+                <span className="font-roboto">Email</span>
               </a>
             </div>
           </div>
