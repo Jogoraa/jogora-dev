@@ -89,55 +89,76 @@ const Home = () => {
       </section>
 
       {/* Featured Projects Section */}
-      <section className="py-24 px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-light tracking-tight text-black mb-6">
+      <section className="py-24 px-6 lg:px-8 bg-gradient-to-r from-gray-50/80 via-white to-gray-50/80 relative">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+        <div className="max-w-6xl mx-auto relative">
+          <AnimatedContainer animation="fade-in-up" className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-light tracking-tight text-black mb-6 font-roboto">
               Featured Projects
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-roboto">
               A selection of recent work showcasing full-stack development, system administration, and innovative solutions.
             </p>
-          </div>
+          </AnimatedContainer>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {featuredProjects.map((project, index) => (
-              <Card key={project.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-2 bg-white border-gray-200">
-                <CardContent className="p-8">
-                  <div className="mb-6">
-                    <h3 className="text-2xl font-light mb-3 text-black group-hover:text-gray-700 transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed mb-4">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech) => (
-                        <Badge key={tech} variant="secondary" className="bg-gray-100 text-gray-700 hover:bg-gray-200">
-                          {tech}
-                        </Badge>
-                      ))}
+              <AnimatedContainer 
+                key={project.id}
+                animation="fade-in-up"
+                delay={index * 200}
+              >
+                <Card className="group hover:shadow-modern-hover transition-all duration-600 hover:-translate-y-3 bg-white/80 backdrop-blur-sm border-gray-200/50 hover:border-gray-300/80 h-full">
+                  <CardContent className="p-8 h-full flex flex-col">
+                    <div className="mb-6 flex-grow">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="text-2xl font-light text-black group-hover:text-gray-700 transition-colors font-roboto">
+                          {project.title}
+                        </h3>
+                        <Zap className="h-5 w-5 text-gray-400 group-hover:text-yellow-500 transition-colors duration-300" />
+                      </div>
+                      <p className="text-gray-600 leading-relaxed mb-4 font-roboto">
+                        {project.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map((tech, techIndex) => (
+                          <Badge 
+                            key={tech} 
+                            variant="secondary" 
+                            className="bg-gray-100/80 text-gray-700 hover:bg-gray-200/80 transition-colors duration-300 font-roboto"
+                            style={{ animationDelay: `${techIndex * 50}ms` }}
+                          >
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                  <Link
-                    to={`/projects/${project.slug}`}
-                    className="inline-flex items-center text-black hover:text-gray-700 transition-colors font-medium"
-                  >
-                    View Project
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </CardContent>
-              </Card>
+                    <Link
+                      to={`/projects/${project.slug}`}
+                      className="inline-flex items-center text-black hover:text-gray-700 transition-all duration-300 font-medium group-hover:translate-x-1 font-roboto"
+                    >
+                      View Project
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                    </Link>
+                  </CardContent>
+                </Card>
+              </AnimatedContainer>
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Button asChild variant="outline" size="lg" className="border-gray-300 hover:border-black transition-all duration-200">
+          <AnimatedContainer animation="scale-in" delay={600} className="text-center mt-12">
+            <Button 
+              asChild 
+              variant="outline" 
+              size="lg" 
+              className="border-gray-300 hover:border-black transition-all duration-400 hover:scale-105 hover:shadow-modern font-roboto"
+            >
               <Link to="/projects">
                 View All Projects
+                <Star className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-          </div>
+          </AnimatedContainer>
         </div>
       </section>
 
