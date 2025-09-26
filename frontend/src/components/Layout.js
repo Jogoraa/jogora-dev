@@ -34,29 +34,40 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
+        scrolled 
+          ? 'bg-white/90 backdrop-blur-xl border-b border-gray-200/50 shadow-modern' 
+          : 'bg-white/80 backdrop-blur-md border-b border-gray-100'
+      }`}>
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link to="/" className="text-xl font-light tracking-tight text-black hover:scale-105 transition-transform duration-200">
-              Dawit Jogora
+            <Link 
+              to="/" 
+              className="text-xl font-medium tracking-tight text-black hover:scale-105 transition-all duration-300 hover:text-gray-700"
+            >
+              <span className="font-roboto">Dawit Jogora</span>
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              {navigation.map((item) => (
+              {navigation.map((item, index) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`text-sm font-normal transition-all duration-200 hover:-translate-y-0.5 ${
+                  className={`text-sm font-normal transition-all duration-300 hover:-translate-y-0.5 relative group ${
                     isActive(item.href)
                       ? "text-black font-medium"
                       : "text-gray-600 hover:text-black"
                   }`}
+                  style={{ animationDelay: `${index * 50}ms` }}
                 >
                   {item.name}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-black transition-all duration-300 ${
+                    isActive(item.href) ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}></span>
                 </Link>
               ))}
             </div>
@@ -67,7 +78,7 @@ const Layout = ({ children }) => {
                 href="https://github.com/dawitjogora"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-black transition-colors duration-200 hover:scale-110"
+                className="text-gray-600 hover:text-black transition-all duration-300 hover:scale-110 hover:-translate-y-0.5"
               >
                 <Github className="h-5 w-5" />
               </a>
@@ -75,13 +86,13 @@ const Layout = ({ children }) => {
                 href="https://linkedin.com/in/dawitjogora"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-black transition-colors duration-200 hover:scale-110"
+                className="text-gray-600 hover:text-black transition-all duration-300 hover:scale-110 hover:-translate-y-0.5"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
               <a
                 href="mailto:davejogoraa@gmail.com"
-                className="text-gray-600 hover:text-black transition-colors duration-200 hover:scale-110"
+                className="text-gray-600 hover:text-black transition-all duration-300 hover:scale-110 hover:-translate-y-0.5"
               >
                 <Mail className="h-5 w-5" />
               </a>
@@ -89,40 +100,46 @@ const Layout = ({ children }) => {
 
             {/* Mobile menu button */}
             <button
-              className="md:hidden text-gray-600 hover:text-black transition-colors"
+              className="md:hidden text-gray-600 hover:text-black transition-all duration-300 hover:scale-110"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              <div className="relative w-6 h-6">
+                <Menu className={`h-6 w-6 transition-all duration-300 ${isMenuOpen ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'}`} />
+                <X className={`h-6 w-6 absolute top-0 left-0 transition-all duration-300 ${isMenuOpen ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'}`} />
+              </div>
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-100">
+        <div className={`md:hidden transition-all duration-400 ease-out overflow-hidden ${
+          isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+        }`}>
+          <div className="bg-white/95 backdrop-blur-xl border-t border-gray-100/50">
             <div className="px-6 py-4 space-y-3">
-              {navigation.map((item) => (
+              {navigation.map((item, index) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`block text-base transition-colors ${
+                  className={`block text-base transition-all duration-300 hover:translate-x-2 ${
                     isActive(item.href)
                       ? "text-black font-medium"
                       : "text-gray-600 hover:text-black"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
+                  style={{ animationDelay: `${index * 50}ms` }}
                 >
                   {item.name}
                 </Link>
               ))}
               
               {/* Mobile Social Links */}
-              <div className="flex items-center space-x-4 pt-4 border-t border-gray-100">
+              <div className="flex items-center space-x-6 pt-4 border-t border-gray-100">
                 <a
                   href="https://github.com/dawitjogora"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-black transition-colors"
+                  className="text-gray-600 hover:text-black transition-all duration-300 hover:scale-110"
                 >
                   <Github className="h-5 w-5" />
                 </a>
@@ -130,20 +147,20 @@ const Layout = ({ children }) => {
                   href="https://linkedin.com/in/dawitjogora"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-black transition-colors"
+                  className="text-gray-600 hover:text-black transition-all duration-300 hover:scale-110"
                 >
                   <Linkedin className="h-5 w-5" />
                 </a>
                 <a
                   href="mailto:davejogoraa@gmail.com"
-                  className="text-gray-600 hover:text-black transition-colors"
+                  className="text-gray-600 hover:text-black transition-all duration-300 hover:scale-110"
                 >
                   <Mail className="h-5 w-5" />
                 </a>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </nav>
 
       {/* Main Content */}
