@@ -111,6 +111,9 @@ async def get_project_by_slug(slug: str):
             data=project.dict(),
             message="Project retrieved successfully"
         )
+    except HTTPException:
+        # Re-raise HTTP exceptions as-is
+        raise
     except Exception as e:
         logger.error(f"Error fetching project: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal server error")
