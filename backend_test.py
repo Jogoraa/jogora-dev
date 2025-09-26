@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Get backend URL from environment
-BACKEND_URL = "https://jogora-dev.preview.emergentagent.com/api"
+BACKEND_URL = "https://robotto-portfolio.preview.emergentagent.com/api"
 
 class PortfolioAPITester:
     def __init__(self, base_url: str):
