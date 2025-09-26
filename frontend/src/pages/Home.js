@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Code, Database, Server, Globe } from "lucide-react";
+import { ArrowRight, Code, Database, Server, Globe, Star, Zap, Heart } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { mockData } from "../data/mockData";
+import AnimatedContainer from "../components/AnimatedContainer";
 
 const Home = () => {
   const { profile, featuredProjects, skills, experience } = mockData;
