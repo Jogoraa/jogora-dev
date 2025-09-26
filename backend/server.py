@@ -79,6 +79,9 @@ async def get_profile():
             data=profile.dict(),
             message="Profile retrieved successfully"
         )
+    except HTTPException:
+        # Re-raise HTTP exceptions as-is
+        raise
     except Exception as e:
         logger.error(f"Error fetching profile: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal server error")
