@@ -27,6 +27,8 @@ class PortfolioService:
         if SUPABASE_AVAILABLE:
             try:
                 self.db = supabase_client.get_client()
+                # Test the connection with a simple query to check if API keys are valid
+                test_response = self.db.table('profiles').select('id').limit(1).execute()
                 self.use_mock = False
             except Exception as e:
                 logger.warning(f"Supabase connection failed, using mock data: {e}")
