@@ -11,43 +11,80 @@ const Home = () => {
   const { profile, featuredProjects, skills, experience } = mockData;
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-purple-50/50 pointer-events-none" />
+      <div className="absolute top-20 left-10 w-64 h-64 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-3xl animate-float" />
+      <div className="absolute top-40 right-10 w-80 h-80 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+      
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="mb-8">
-            <h1 className="text-6xl lg:text-8xl font-light tracking-tight text-black mb-6 leading-tight">
-              {profile.name}
+          <AnimatedContainer animation="fade-in-down" className="mb-8">
+            <h1 className="text-6xl lg:text-8xl font-light tracking-tight text-black mb-6 leading-tight font-roboto">
+              <span className="inline-block hover:scale-105 transition-transform duration-300">
+                {profile.name}
+              </span>
             </h1>
-            <p className="text-xl lg:text-2xl font-light text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+          </AnimatedContainer>
+          
+          <AnimatedContainer animation="fade-in-up" delay={200} className="mb-8">
+            <p className="text-xl lg:text-2xl font-light text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed font-roboto">
               {profile.title}
             </p>
-            <p className="text-lg text-gray-500 max-w-4xl mx-auto leading-relaxed mb-12">
+          </AnimatedContainer>
+          
+          <AnimatedContainer animation="fade-in-up" delay={400} className="mb-12">
+            <p className="text-lg text-gray-500 max-w-4xl mx-auto leading-relaxed font-roboto">
               {profile.bio}
             </p>
-          </div>
+          </AnimatedContainer>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <Button asChild size="lg" className="bg-black text-white hover:bg-gray-800 transition-all duration-200 hover:scale-105">
-              <Link to="/projects">
-                View My Work
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="border-gray-300 hover:border-black transition-all duration-200 hover:scale-105">
-              <Link to="/contact">
-                Get In Touch
-              </Link>
-            </Button>
-          </div>
+          <AnimatedContainer animation="scale-in" delay={600} className="mb-16">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button 
+                asChild 
+                size="lg" 
+                className="bg-black text-white hover:bg-gray-800 transition-all duration-400 hover:scale-105 hover:shadow-modern-hover group font-roboto"
+              >
+                <Link to="/projects">
+                  View My Work
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                </Link>
+              </Button>
+              <Button 
+                asChild 
+                variant="outline" 
+                size="lg" 
+                className="border-gray-300 hover:border-black transition-all duration-400 hover:scale-105 hover:shadow-modern group font-roboto"
+              >
+                <Link to="/contact">
+                  Get In Touch
+                  <Heart className="ml-2 h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+                </Link>
+              </Button>
+            </div>
+          </AnimatedContainer>
 
           {/* Tech Stack Icons */}
-          <div className="flex items-center justify-center gap-8 opacity-60">
-            <Code className="h-8 w-8" />
-            <Database className="h-8 w-8" />
-            <Server className="h-8 w-8" />
-            <Globe className="h-8 w-8" />
-          </div>
+          <AnimatedContainer animation="fade-in" delay={800}>
+            <div className="flex items-center justify-center gap-8 opacity-60">
+              {[
+                { icon: Code, delay: 0 },
+                { icon: Database, delay: 100 },
+                { icon: Server, delay: 200 },
+                { icon: Globe, delay: 300 }
+              ].map(({ icon: Icon, delay }, index) => (
+                <div 
+                  key={index}
+                  className="hover:scale-110 hover:opacity-100 transition-all duration-400 animate-pulse-subtle"
+                  style={{ animationDelay: `${delay}ms` }}
+                >
+                  <Icon className="h-8 w-8" />
+                </div>
+              ))}
+            </div>
+          </AnimatedContainer>
         </div>
       </section>
 
