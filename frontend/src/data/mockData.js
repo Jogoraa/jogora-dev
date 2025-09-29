@@ -9,7 +9,7 @@ export const mockData = {
     location: "Addis Ababa, Ethiopia",
     website: "https://www.dawitjogora.vercel.app",
     socialLinks: {
-      github: "https://github.com/dawitjogora",
+      github: "https://github.com/jogoraa",
       linkedin: "https://linkedin.com/in/dawitjogora",
       twitter: "#",
       instagram: "#"
