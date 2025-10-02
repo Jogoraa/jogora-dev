@@ -1,10 +1,17 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Github, ExternalLink, Calendar, Clock } from "lucide-react";
+import { 
+  ArrowLeft, Github, ExternalLink, Calendar, Clock, Rocket, Star, 
+  Zap, Code, Award, TrendingUp, Heart, Sparkles, Target, CheckCircle
+} from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { mockData } from "../data/mockData";
+import ParticleBackground from "../components/ParticleBackground";
+import ScrollAnimations from "../components/ScrollAnimations";
+import GlassMorphism from "../components/GlassMorphism";
+import InteractiveButton from "../components/InteractiveButton";
 
 const ProjectDetail = () => {
   const { slug } = useParams();
@@ -12,223 +19,338 @@ const ProjectDetail = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen py-24 px-6 lg:px-8 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-light text-black mb-4">Project Not Found</h1>
-          <p className="text-gray-600 mb-8">The project you're looking for doesn't exist.</p>
-          <Button asChild variant="outline">
-            <Link to="/projects">Back to Projects</Link>
-          </Button>
+      <div className="relative min-h-screen overflow-hidden">
+        <ParticleBackground />
+        <div className="absolute inset-0 bg-gradient-to-br from-red-900 via-pink-900 to-purple-900" />
+        <div className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+          <GlassMorphism className="text-center p-6 sm:p-12 lg:p-16 rounded-2xl sm:rounded-3xl border-white/10 max-w-2xl mx-4" intensity="medium">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mx-auto mb-6 sm:mb-8 rounded-full bg-gradient-to-r from-red-500/20 to-pink-500/20 flex items-center justify-center">
+              <Target className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 text-red-400" />
+            </div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4">Project Not Found</h1>
+            <p className="text-gray-300 mb-6 sm:mb-8 text-base sm:text-lg">The project you're looking for doesn't exist or may have been moved.</p>
+            <InteractiveButton
+              variant="gradient"
+              size="lg"
+              ripple={true}
+              glow={true}
+            >
+              <Link to="/projects" className="flex items-center gap-3">
+                <ArrowLeft className="h-5 w-5" />
+                Back to Projects
+                <Rocket className="h-5 w-5" />
+              </Link>
+            </InteractiveButton>
+          </GlassMorphism>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen py-24 px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Back Button */}
-        <Button asChild variant="ghost" className="mb-8 -ml-4 hover:bg-gray-50">
-          <Link to="/projects">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Projects
-          </Link>
-        </Button>
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Epic Background */}
+      <ParticleBackground />
+      
+      {/* Dynamic Background Layers */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-900 via-purple-900 to-indigo-900" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/50 via-transparent to-pink-900/50" />
+        
+        {/* Floating Orbs */}
+        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-violet-500/20 to-purple-500/20 rounded-full blur-3xl animate-float" />
+        <div className="absolute top-80 right-32 w-80 h-80 bg-gradient-to-r from-indigo-500/15 to-blue-500/15 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute bottom-40 left-1/3 w-64 h-64 bg-gradient-to-r from-pink-500/10 to-violet-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
+      </div>
 
-        {/* Project Header */}
-        <div className="mb-12">
-          <div className="flex items-start justify-between mb-6">
-            <div>
-              <h1 className="text-4xl lg:text-5xl font-light tracking-tight text-black mb-4">
-                {project.title}
-              </h1>
-              <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
-                {project.longDescription || project.description}
-              </p>
+      <div className="relative z-10 py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-8xl mx-auto">
+          {/* Epic Back Button */}
+          <ScrollAnimations animation="fade-in-up" delay={0}>
+            <div className="mb-8 sm:mb-12">
+              <InteractiveButton
+                variant="secondary"
+                size="md"
+                ripple={true}
+                className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+              >
+                <Link to="/projects" className="flex items-center gap-2 sm:gap-3">
+                  <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className="text-sm sm:text-base">Back to Projects</span>
+                </Link>
+              </InteractiveButton>
             </div>
-            <div className="flex items-center gap-3 ml-6">
-              {project.githubUrl && project.githubUrl !== "#" && (
-                <Button asChild variant="outline" size="sm">
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                    <Github className="mr-2 h-4 w-4" />
-                    Code
-                  </a>
-                </Button>
-              )}
-              {project.liveUrl && project.liveUrl !== "#" && (
-                <Button asChild size="sm" className="bg-black text-white hover:bg-gray-800">
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="mr-2 h-4 w-4" />
-                    Live Demo
-                  </a>
-                </Button>
-              )}
-            </div>
-          </div>
+          </ScrollAnimations>
 
-          {/* Project Meta */}
-          <div className="flex flex-wrap items-center gap-4 mb-8">
-            <Badge variant={project.status === 'Live' ? 'default' : 'secondary'} 
-                   className={project.status === 'Live' ? 'bg-green-100 text-green-700' : ''}>
-              {project.status}
-            </Badge>
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <Calendar className="h-4 w-4" />
-              2024
-            </div>
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <Clock className="h-4 w-4" />
-              {project.featured ? 'Featured Project' : 'Side Project'}
-            </div>
-          </div>
-
-          {/* Technologies */}
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech) => (
-              <Badge key={tech} variant="secondary" className="bg-gray-100 text-gray-700">
-                {tech}
-              </Badge>
-            ))}
-          </div>
-        </div>
-
-        {/* Project Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Key Features */}
-            {project.keyFeatures && (
-              <Card className="bg-white border-gray-200">
-                <CardContent className="p-8">
-                  <h2 className="text-2xl font-light mb-6 text-black">Key Features</h2>
-                  <ul className="space-y-3">
-                    {project.keyFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="w-2 h-2 bg-black rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                        <span className="text-gray-600 leading-relaxed">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Challenges & Solutions */}
-            {project.challenges && project.solutions && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="bg-white border-gray-200">
-                  <CardContent className="p-8">
-                    <h3 className="text-xl font-light mb-4 text-black">Challenges</h3>
-                    <ul className="space-y-3">
-                      {project.challenges.map((challenge, index) => (
-                        <li key={index} className="flex items-start">
-                          <span className="w-2 h-2 bg-red-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                          <span className="text-gray-600 text-sm leading-relaxed">{challenge}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-white border-gray-200">
-                  <CardContent className="p-8">
-                    <h3 className="text-xl font-light mb-4 text-black">Solutions</h3>
-                    <ul className="space-y-3">
-                      {project.solutions.map((solution, index) => (
-                        <li key={index} className="flex items-start">
-                          <span className="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                          <span className="text-gray-600 text-sm leading-relaxed">{solution}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
-          </div>
-
-          {/* Sidebar */}
-          <div className="space-y-6">
-            <Card className="bg-gray-50 border-gray-200">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-medium mb-4 text-black">Project Details</h3>
-                <div className="space-y-3 text-sm">
-                  <div>
-                    <span className="text-gray-500">Status:</span>
-                    <span className="ml-2 font-medium">{project.status}</span>
+          {/* Epic Project Header */}
+          <ScrollAnimations animation="fade-in-up" delay={200}>
+            <GlassMorphism className="p-4 sm:p-8 lg:p-12 rounded-2xl sm:rounded-3xl border-white/10 mb-12 sm:mb-16" intensity="medium">
+              <div className="flex flex-col lg:flex-row items-start justify-between gap-6 sm:gap-8">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                      <Zap className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-white animate-pulse" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-white mb-2 leading-tight">
+                        {project.title}
+                      </h1>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-gray-300">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                          <span className="text-sm font-medium">{project.status}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Calendar className="h-4 w-4" />
+                          <span className="text-sm">2024</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Star className="h-4 w-4" />
+                          <span className="text-sm">{project.featured ? 'Featured' : 'Side Project'}</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-gray-500">Type:</span>
-                    <span className="ml-2 font-medium">
-                      {project.featured ? 'Featured Project' : 'Side Project'}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-gray-500">Technologies:</span>
-                    <span className="ml-2 font-medium">{project.technologies.length}</span>
+                  
+                  <p className="text-xl text-gray-300 leading-relaxed mb-8 font-light">
+                    {project.longDescription || project.description}
+                  </p>
+
+                  {/* Technologies */}
+                  <div className="mb-8">
+                    <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
+                      <Code className="h-5 w-5 text-purple-400" />
+                      Technology Stack
+                    </h3>
+                    <div className="flex flex-wrap gap-3">
+                      {project.technologies.map((tech, index) => (
+                        <div 
+                          key={tech}
+                          className="group/tech relative"
+                          style={{ animationDelay: `${index * 100}ms` }}
+                        >
+                          <div className="absolute -inset-0.5 bg-gradient-to-r from-violet-500 to-purple-500 rounded-lg blur opacity-0 group-hover/tech:opacity-100 transition duration-300" />
+                          <span className="relative px-4 py-2 bg-slate-800/80 backdrop-blur-sm border border-white/10 rounded-lg text-gray-300 text-sm font-medium hover:text-white hover:bg-slate-700/80 transition-all duration-300 group-hover/tech:scale-105">
+                            {tech}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* Quick Links */}
-            <Card className="bg-white border-gray-200">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-medium mb-4 text-black">Quick Links</h3>
-                <div className="space-y-3">
+                
+                <div className="flex flex-col gap-4">
                   {project.githubUrl && project.githubUrl !== "#" && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center text-gray-600 hover:text-black transition-colors"
+                    <InteractiveButton
+                      variant="secondary"
+                      size="lg"
+                      ripple={true}
+                      className="bg-white/10 border-white/20 text-white hover:bg-white/20 group"
                     >
-                      <Github className="mr-3 h-4 w-4" />
-                      View Source Code
-                    </a>
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3">
+                        <Github className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+                        View Code
+                      </a>
+                    </InteractiveButton>
                   )}
                   {project.liveUrl && project.liveUrl !== "#" && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center text-gray-600 hover:text-black transition-colors"
+                    <InteractiveButton
+                      variant="gradient"
+                      size="lg"
+                      ripple={true}
+                      glow={true}
+                      className="group"
                     >
-                      <ExternalLink className="mr-3 h-4 w-4" />
-                      Live Demo
-                    </a>
+                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3">
+                        <ExternalLink className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+                        Live Demo
+                        <Rocket className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
+                      </a>
+                    </InteractiveButton>
                   )}
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+              </div>
+            </GlassMorphism>
+          </ScrollAnimations>
 
-        {/* Related Projects */}
-        <div className="mt-24">
-          <h2 className="text-3xl font-light text-black mb-8">More Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {mockData.projects
-              .filter(p => p.id !== project.id && p.featured)
-              .slice(0, 2)
-              .map((relatedProject) => (
-                <Card key={relatedProject.id} className="group hover:shadow-md transition-all duration-200 hover:-translate-y-1">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-light mb-2 text-black group-hover:text-gray-700 transition-colors">
-                      {relatedProject.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4">{relatedProject.description}</p>
-                    <Link
-                      to={`/projects/${relatedProject.slug}`}
-                      className="inline-flex items-center text-black hover:text-gray-700 transition-colors text-sm font-medium"
-                    >
-                      View Project
-                      <ArrowLeft className="ml-2 h-3 w-3 rotate-180" />
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
+          {/* Epic Project Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-24">
+            {/* Main Content */}
+            <div className="lg:col-span-2 space-y-8">
+              {/* Key Features */}
+              {project.keyFeatures && (
+                <ScrollAnimations animation="fade-in-up" delay={400}>
+                  <GlassMorphism className="p-8 rounded-3xl border-white/10" intensity="medium">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                        <CheckCircle className="h-6 w-6 text-white" />
+                      </div>
+                      <h2 className="text-3xl font-bold text-white">Key Features</h2>
+                    </div>
+                    <div className="space-y-4">
+                      {project.keyFeatures.map((feature, index) => (
+                        <div key={index} className="flex items-start gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300">
+                          <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full mt-2 flex-shrink-0" />
+                          <span className="text-gray-300 leading-relaxed font-medium">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </GlassMorphism>
+                </ScrollAnimations>
+              )}
+
+              {/* Challenges & Solutions */}
+              {project.challenges && project.solutions && (
+                <ScrollAnimations animation="fade-in-up" delay={600}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <GlassMorphism className="p-8 rounded-3xl border-white/10" intensity="medium">
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-red-500 to-pink-600 flex items-center justify-center">
+                          <Target className="h-6 w-6 text-white" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-white">Challenges</h3>
+                      </div>
+                      <div className="space-y-3">
+                        {project.challenges.map((challenge, index) => (
+                          <div key={index} className="flex items-start gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300">
+                            <div className="w-2 h-2 bg-gradient-to-r from-red-400 to-pink-400 rounded-full mt-2 flex-shrink-0" />
+                            <span className="text-gray-300 text-sm leading-relaxed">{challenge}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </GlassMorphism>
+
+                    <GlassMorphism className="p-8 rounded-3xl border-white/10" intensity="medium">
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                          <CheckCircle className="h-6 w-6 text-white" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-white">Solutions</h3>
+                      </div>
+                      <div className="space-y-3">
+                        {project.solutions.map((solution, index) => (
+                          <div key={index} className="flex items-start gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300">
+                            <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full mt-2 flex-shrink-0" />
+                            <span className="text-gray-300 text-sm leading-relaxed">{solution}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </GlassMorphism>
+                  </div>
+                </ScrollAnimations>
+              )}
+            </div>
+
+            {/* Epic Sidebar */}
+            <div className="space-y-8">
+              <ScrollAnimations animation="fade-in-up" delay={500}>
+                <GlassMorphism className="p-6 rounded-3xl border-white/10" intensity="medium">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                      <Award className="h-5 w-5 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white">Project Details</h3>
+                  </div>
+                  <div className="space-y-4">
+                    {[
+                      { label: "Status", value: project.status, icon: TrendingUp },
+                      { label: "Type", value: project.featured ? 'Featured Project' : 'Side Project', icon: Star },
+                      { label: "Technologies", value: `${project.technologies.length} Used`, icon: Code }
+                    ].map((detail, index) => (
+                      <div key={index} className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
+                        <detail.icon className="h-4 w-4 text-purple-400" />
+                        <span className="text-gray-400 text-sm">{detail.label}:</span>
+                        <span className="text-white font-medium text-sm">{detail.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </GlassMorphism>
+              </ScrollAnimations>
+
+              <ScrollAnimations animation="fade-in-up" delay={700}>
+                <GlassMorphism className="p-6 rounded-3xl border-white/10" intensity="medium">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+                      <ExternalLink className="h-5 w-5 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white">Quick Links</h3>
+                  </div>
+                  <div className="space-y-3">
+                    {project.githubUrl && project.githubUrl !== "#" && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300"
+                      >
+                        <Github className="h-4 w-4 text-gray-400 group-hover:text-white transition-colors duration-300" />
+                        <span className="text-gray-300 group-hover:text-white transition-colors duration-300">View Source Code</span>
+                      </a>
+                    )}
+                    {project.liveUrl && project.liveUrl !== "#" && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300"
+                      >
+                        <ExternalLink className="h-4 w-4 text-gray-400 group-hover:text-white transition-colors duration-300" />
+                        <span className="text-gray-300 group-hover:text-white transition-colors duration-300">Live Demo</span>
+                      </a>
+                    )}
+                  </div>
+                </GlassMorphism>
+              </ScrollAnimations>
+            </div>
           </div>
+
+          {/* Epic Related Projects */}
+          <ScrollAnimations animation="fade-in-up" delay={800}>
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-bold text-white mb-6">
+                <span className="bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
+                  More Projects
+                </span>
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light">
+                Explore other innovative solutions and creative implementations
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {mockData.projects
+                .filter(p => p.id !== project.id && p.featured)
+                .slice(0, 2)
+                .map((relatedProject, index) => (
+                  <div key={relatedProject.id} className="group relative">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200" />
+                    <GlassMorphism className="relative p-8 rounded-3xl border-white/10 group-hover:scale-105 transition-all duration-500" intensity="medium">
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <Zap className="h-6 w-6 text-white" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-white group-hover:text-violet-400 transition-colors duration-300">
+                          {relatedProject.title}
+                        </h3>
+                      </div>
+                      <p className="text-gray-300 mb-6 leading-relaxed">{relatedProject.description}</p>
+                      <InteractiveButton
+                        variant="secondary"
+                        size="md"
+                        ripple={true}
+                        className="w-full bg-white/10 border-white/20 text-white hover:bg-white/20 group"
+                      >
+                        <Link to={`/projects/${relatedProject.slug}`} className="flex items-center gap-3 w-full justify-center">
+                          <Star className="h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
+                          View Project
+                          <ArrowLeft className="h-4 w-4 rotate-180 group-hover:translate-x-1 transition-transform duration-300" />
+                        </Link>
+                      </InteractiveButton>
+                    </GlassMorphism>
+                  </div>
+                ))}
+            </div>
+          </ScrollAnimations>
         </div>
       </div>
     </div>

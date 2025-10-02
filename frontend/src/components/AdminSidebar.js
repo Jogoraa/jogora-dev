@@ -2,6 +2,7 @@ import React from "react";
 
 const navItems = [
   { label: "Dashboard", key: "dashboard" },
+  { label: "Resume Manager", key: "resume" },
   { label: "Projects", key: "projects" },
   { label: "Experience", key: "experience" },
   { label: "Skills", key: "skills" },

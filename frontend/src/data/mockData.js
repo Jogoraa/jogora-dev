@@ -292,7 +292,7 @@ export const mockData = {
       company: "Guangzhou Shubiao",
       role: "System Administrator (ERP Implementation Support)",
       period: "March 2024 - April 2025",
-      location: "Guangzhou, China",
+      location: "Addis Ababa, Ethiopia",
       type: "Contract",
       description: "Led ERP system deployment and implementation support, achieving 99.9% system uptime and training over 200 users with 95% adoption rate.",
       achievements: [
