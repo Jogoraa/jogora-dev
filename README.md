@@ -1,132 +1,104 @@
-# Dawit Jogora Portfolio – Full Stack Application
+# Jogora Portfolio
 
-This is a full-stack portfolio application for Dawit Jogora, built with a modern React frontend and a FastAPI backend integrated with Supabase for data storage. The project showcases professional experience, projects, skills, education, and more, with both public and admin (CRUD) interfaces.
+A world-class developer portfolio built with React, featuring a premium admin dashboard powered by Supabase.
 
----
+## 🚀 Features
 
-## Project Structure
+- **Premium Design** - World-class UI with particle backgrounds, glass morphism, and smooth animations
+- **Admin Dashboard** - Full-featured admin panel with authentication
+- **Supabase Backend** - Real-time database with Row Level Security
+- **Responsive** - Fully responsive design for all devices
+- **SEO Optimized** - Built with best practices for search engines
 
-```
-.
-├── backend/                # FastAPI backend (Supabase/PostgreSQL)
-│   ├── server.py           # Main FastAPI app and API endpoints
-│   ├── requirements.txt    # Backend dependencies
-│   ├── .env                # Backend environment variables (Supabase, JWT, etc.)
-│   ├── database/
-│   │   └── supabase_client.py
-│   ├── models/
-│   │   └── portfolio_models.py
-│   ├── services/
-│   │   ├── portfolio_service.py
-│   │   └── seed_data.py
-│   └── ...
-├── frontend/               # React frontend (Create React App + Tailwind CSS)
-│   ├── src/
-│   │   ├── pages/          # Main pages (Home, Projects, About, Contact, Resume)
-│   │   ├── components/     # UI components
-│   │   ├── data/           # mockData.js (to be replaced by API calls)
-│   │   └── ...
-│   ├── public/
-│   │   └── index.html
-│   ├── .env                # Frontend environment variables (API URLs, Supabase)
-│   └── ...
-├── contracts.md            # API/data contracts and integration plan
-├── test_result.md          # Automated test results and protocol
-├── backend_test.py         # Backend API test suite
-└── README.md               # Project overview (this file)
+## 📦 Tech Stack
+
+- **Frontend**: React 18, React Router, TailwindCSS
+- **UI Components**: Radix UI, Lucide Icons
+- **Backend**: Supabase (PostgreSQL, Authentication)
+- **Deployment**: Vercel
+- **Build Tool**: CRACO (Create React App Configuration Override)
+
+## 🛠️ Quick Start
+
+### Prerequisites
+- Node.js 18.x or higher
+- Yarn package manager
+
+### Installation
+
+```bash
+# Install dependencies
+yarn install
+
+# Start development server
+yarn start
 ```
 
----
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## Tech Stack
+### Build for Production
 
-- **Frontend:** React, Tailwind CSS, Lucide Icons, Create React App
-- **Backend:** FastAPI, Supabase (PostgreSQL), Pydantic, Uvicorn
-- **Database:** Supabase (PostgreSQL)
-- **Testing:** Custom Python test suite (`backend_test.py`)
-- **Other:** Environment-based configuration, mock data fallback, admin CRUD endpoints
+```bash
+# Create optimized production build
+yarn build
+```
 
----
+The build is minified and ready to be deployed to the `build` folder.
 
-## Key Features
+## 🔐 Admin Dashboard
 
-- **Public Portfolio:** Profile, featured projects, experience, skills, education, languages, certifications, contact form
-- **Admin Panel:** Secure login, CRUD for all content (projects, experience, skills, education, messages, etc.)
-- **API:** RESTful endpoints for all portfolio data, with mock data fallback if Supabase is unavailable
-- **Responsive UI:** Modern, mobile-friendly design with animations and accessibility in mind
-- **Testing:** Automated backend API tests with results tracked in `test_result.md`
+Access the admin panel at `/admin/login` with your Supabase credentials.
 
----
+### Admin Features
+- **Resume Manager** - Edit and manage resume content
+- **Projects Manager** - Add, edit, and delete portfolio projects
+- **Dashboard** - Overview of portfolio statistics
+- **Data Seeder** - Initialize database with sample data
 
-## Getting Started
+## 🗄️ Database Setup
 
-### 1. Backend
+See [SUPABASE_SETUP.md](./SUPABASE_SETUP.md) for detailed instructions on setting up your Supabase database.
 
-- Install dependencies:
-  ```sh
-  cd backend
-  pip install -r requirements.txt
-  ```
-- Configure `.env` with Supabase and email credentials (see `contracts.md` for details).
-- Run the server:
-  ```sh
-  uvicorn server:app --reload --port 8001
-  ```
+## 📁 Project Structure
 
-### 2. Frontend
+```
+jogora-dev/
+├── public/              # Static files
+├── src/
+│   ├── components/      # Reusable React components
+│   ├── pages/          # Page components
+│   ├── contexts/       # React contexts (Auth, etc.)
+│   ├── services/       # API services
+│   ├── config/         # Configuration files
+│   ├── data/           # Mock data
+│   └── styles/         # Global styles
+├── database/           # Database schema
+├── docs/              # Documentation
+└── vercel.json        # Vercel deployment config
+```
 
-- Install dependencies:
-  ```sh
-  cd frontend
-  npm install
-  ```
-- Configure `.env` with backend API URL and Supabase keys.
-- Start the development server:
-  ```sh
-  npm start
-  ```
+## 🚀 Deployment
 
----
+This project is configured for deployment on Vercel:
 
-## API Overview
+1. Push your code to GitHub
+2. Import the repository in Vercel
+3. Add environment variables (see `.env.example`)
+4. Deploy!
 
-- **Public Endpoints:**  
-  `/api/profile`, `/api/projects`, `/api/projects/:slug`, `/api/experience`, `/api/skills`, `/api/education`, `/api/languages`, `/api/certifications`, `/api/contact`
-- **Admin Endpoints:**  
-  `/api/admin/*` (CRUD for all content, requires authentication)
+## 📝 Environment Variables
 
-See [contracts.md](contracts.md) for full API contracts and database schema.
+Create a `.env` file in the root directory:
 
----
+```env
+REACT_APP_SUPABASE_URL=your_supabase_url
+REACT_APP_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-## Testing
+## 📄 License
 
-- Run backend API tests:
-  ```sh
-  python backend_test.py
-  ```
-- Results and protocol are tracked in [test_result.md](test_result.md).
+© 2024 Dawit Jogora. All rights reserved.
 
----
+## 🤝 Contributing
 
-## Development Notes
-
-- **Mock Data:**  
-  The frontend currently uses `mockData.js` for demo purposes. See the integration plan in [contracts.md](contracts.md) for migrating to live API calls.
-- **Environment Variables:**  
-  See `.env` files in both `backend/` and `frontend/` for configuration.
-- **Admin Panel:**  
-  Admin endpoints and panel are planned for secure content management.
-
----
-
-## License
-
-MIT (or specify your license here)
-
----
-
-## Credits
-
-- Dawit Jogora – [dawitjogora.vercel.app](https://www.dawitjogora.vercel.app)
-- Built with React, FastAPI, and Supabase
+This is a personal portfolio project. Feel free to fork and customize for your own use!
