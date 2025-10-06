@@ -89,7 +89,7 @@ const AdminLayout = () => {
         <div className={`fixed inset-y-0 left-0 z-50 w-72 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}>
-          <GlassMorphism className="h-full p-4 sm:p-6 border-r border-white/10" intensity="medium">
+          <GlassMorphism className="h-full p-4 sm:p-6 border-r border-white/10 flex flex-col overflow-hidden" intensity="medium">
             {/* Logo */}
             <div className="flex items-center gap-3 mb-8">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center">
@@ -102,7 +102,7 @@ const AdminLayout = () => {
             </div>
 
             {/* Navigation */}
-            <nav className="space-y-2 mb-8">
+            <nav className="space-y-2 mb-8 flex-1 overflow-y-auto pr-1">
               {sidebarItems.map((item, index) => (
                 <Link
                   key={index}
@@ -153,15 +153,39 @@ const AdminLayout = () => {
               </div>
               
               <div className="space-y-2">
-                <Link to="/" target="_blank">
-                  <Button
-                    variant="outline"
-                    className="w-full border-slate-500/30 text-slate-200 hover:bg-slate-700/50 hover:border-slate-400/40 justify-start text-sm"
-                  >
-                    <Eye className="h-4 w-4 mr-2" />
-                    View Live Site
-                  </Button>
-                </Link>
+                {/* Quick Portfolio Links */}
+                <div className="mb-3">
+                  <p className="text-xs text-slate-400 mb-2 px-2">Quick Access</p>
+                  <div className="space-y-1">
+                    <Link to="/" target="_blank">
+                      <Button
+                        variant="outline"
+                        className="w-full border-slate-500/30 text-slate-200 hover:bg-slate-700/50 hover:border-slate-400/40 justify-start text-sm"
+                      >
+                        <Eye className="h-4 w-4 mr-2" />
+                        View Home
+                      </Button>
+                    </Link>
+                    <Link to="/projects" target="_blank">
+                      <Button
+                        variant="outline"
+                        className="w-full border-slate-500/30 text-slate-200 hover:bg-slate-700/50 hover:border-slate-400/40 justify-start text-sm"
+                      >
+                        <FolderOpen className="h-4 w-4 mr-2" />
+                        View Projects
+                      </Button>
+                    </Link>
+                    <Link to="/resume" target="_blank">
+                      <Button
+                        variant="outline"
+                        className="w-full border-slate-500/30 text-slate-200 hover:bg-slate-700/50 hover:border-slate-400/40 justify-start text-sm"
+                      >
+                        <FileText className="h-4 w-4 mr-2" />
+                        View Resume
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
                 
                 <Button
                   onClick={handleLogout}
@@ -243,6 +267,16 @@ const AdminLayout = () => {
               <div className="flex items-center gap-3">
                 <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
                   <Bell className="h-5 w-5" />
+                </Button>
+                {/* Mobile quick logout */}
+                <Button
+                  onClick={handleLogout}
+                  variant="outline"
+                  size="sm"
+                  className="lg:hidden border-slate-500/30 text-slate-200 hover:bg-slate-700/50 hover:border-slate-400/40"
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign Out
                 </Button>
               </div>
             </div>

@@ -26,6 +26,7 @@ import {
 import ScrollAnimations from '../../components/ScrollAnimations';
 import GlassMorphism from '../../components/GlassMorphism';
 import InteractiveButton from '../../components/InteractiveButton';
+import ParticleBackground from '../../components/ParticleBackground';
 import { useAuth } from '../../contexts/AuthContext';
 import resumeService from '../../services/resumeService';
 import { mockData } from '../../data/mockData';
@@ -180,29 +181,38 @@ const AdminResume = () => {
   }
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8">
+    <div className="p-4 sm:p-6 lg:p-8 relative overflow-hidden min-h-screen">
+      {/* Enhanced animated background elements */}
+      <ParticleBackground />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-10 left-10 w-96 h-96 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-1/2 right-10 w-80 h-80 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute bottom-10 left-1/3 w-72 h-72 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+      </div>
+      
+      <div className="relative z-10">
       {/* Header Actions */}
       <ScrollAnimations animation="fade-in-up" delay={0}>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center shadow-lg shadow-orange-500/30">
               <FileText className="h-6 w-6 text-white" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-xl font-bold text-white">Resume Content</h2>
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-300 to-red-300 bg-clip-text text-transparent">Resume Manager</h2>
                 {hasChanges && (
-                  <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 text-xs">
+                  <Badge className="bg-gradient-to-r from-yellow-400/30 to-orange-400/30 text-yellow-200 border-yellow-400/50 text-xs shadow-lg shadow-yellow-500/20">
                     Unsaved Changes
                   </Badge>
                 )}
                 {user && (
-                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
+                  <Badge className="bg-gradient-to-r from-green-500/30 to-emerald-500/30 text-green-200 border-green-400/40 text-xs">
                     Connected to Supabase
                   </Badge>
                 )}
               </div>
-              <p className="text-gray-400 text-sm">Manage your professional resume information</p>
+              <p className="text-white text-sm font-medium">Manage your professional resume information</p>
               {error && (
                 <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
                   <AlertCircle className="h-3 w-3" />
@@ -212,26 +222,28 @@ const AdminResume = () => {
             </div>
           </div>
           
-          <div className="flex items-center gap-3">
-            <Button
-              variant="outline"
+          <div className="flex items-center gap-3 flex-wrap w-full sm:w-auto">
+            <InteractiveButton
+              variant="secondary"
               size="sm"
+              ripple={true}
               onClick={handleExport}
-              className="border-white/20 text-white hover:bg-white/10"
+              className="w-full sm:w-auto bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border-blue-400/30 text-black hover:from-blue-500/30 hover:to-indigo-500/30 hover:border-blue-300/50 hover:shadow-lg hover:shadow-blue-500/25"
             >
-              <Download className="h-4 w-4 mr-2" />
+              <Download className="h-4 w-4 mr-2 text-black" />
               Export
-            </Button>
+            </InteractiveButton>
             
-            <Button
-              variant="outline"
+            <InteractiveButton
+              variant="secondary"
               size="sm"
+              ripple={true}
               onClick={handleReset}
-              className="border-white/20 text-white hover:bg-white/10"
+              className="w-full sm:w-auto bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-purple-400/30 text-black hover:from-purple-500/30 hover:to-pink-500/30 hover:border-purple-300/50 hover:shadow-lg hover:shadow-purple-500/25"
             >
-              <RotateCcw className="h-4 w-4 mr-2" />
+              <RotateCcw className="h-4 w-4 mr-2 text-black" />
               Reset
-            </Button>
+            </InteractiveButton>
             
             <InteractiveButton
               variant="gradient"
@@ -239,6 +251,7 @@ const AdminResume = () => {
               ripple={true}
               onClick={handleSave}
               disabled={!hasChanges || saving}
+              className="w-full sm:w-auto"
             >
               {saving ? (
                 <>
@@ -256,23 +269,25 @@ const AdminResume = () => {
         </div>
       </ScrollAnimations>
 
-      {/* Resume Management Tabs */}
+      {/* Enhanced Resume Management Tabs */}
       <ScrollAnimations animation="fade-in-up" delay={200}>
-        <GlassMorphism className="rounded-2xl border-white/10" intensity="medium">
+        <GlassMorphism className="rounded-2xl border-orange-400/20 hover:border-orange-300/40 transition-all duration-300 backdrop-blur-xl" intensity="medium">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 bg-white/5 p-1 rounded-xl mb-6">
-              <TabsTrigger value="overview" className="text-xs sm:text-sm">Overview</TabsTrigger>
-              <TabsTrigger value="profile" className="text-xs sm:text-sm">Profile</TabsTrigger>
-              <TabsTrigger value="experience" className="text-xs sm:text-sm">Experience</TabsTrigger>
-              <TabsTrigger value="skills" className="text-xs sm:text-sm">Skills</TabsTrigger>
-              <TabsTrigger value="education" className="text-xs sm:text-sm">Education</TabsTrigger>
-              <TabsTrigger value="other" className="text-xs sm:text-sm">Other</TabsTrigger>
+            <div className="-mx-2 px-2 overflow-x-auto">
+            <TabsList className="flex w-max min-w-full gap-1 bg-gradient-to-r from-orange-500/10 to-red-500/10 p-1 rounded-xl mb-6 border border-orange-400/20">
+              <TabsTrigger value="overview" className="flex-shrink-0 text-xs sm:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500/40 data-[state=active]:to-red-500/40 data-[state=active]:text-black data-[state=active]:font-semibold text-black hover:text-black">Overview</TabsTrigger>
+              <TabsTrigger value="profile" className="flex-shrink-0 text-xs sm:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500/40 data-[state=active]:to-red-500/40 data-[state=active]:text-black data-[state=active]:font-semibold text-black hover:text-black">Profile</TabsTrigger>
+              <TabsTrigger value="experience" className="flex-shrink-0 text-xs sm:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500/40 data-[state=active]:to-red-500/40 data-[state=active]:text-black data-[state=active]:font-semibold text-black hover:text-black">Experience</TabsTrigger>
+              <TabsTrigger value="skills" className="flex-shrink-0 text-xs sm:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500/40 data-[state=active]:to-red-500/40 data-[state=active]:text-black data-[state=active]:font-semibold text-black hover:text-black">Skills</TabsTrigger>
+              <TabsTrigger value="education" className="flex-shrink-0 text-xs sm:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500/40 data-[state=active]:to-red-500/40 data-[state=active]:text-black data-[state=active]:font-semibold text-black hover:text-black">Education</TabsTrigger>
+              <TabsTrigger value="other" className="flex-shrink-0 text-xs sm:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500/40 data-[state=active]:to-red-500/40 data-[state=active]:text-black data-[state=active]:font-semibold text-black hover:text-black">Other</TabsTrigger>
             </TabsList>
+            </div>
 
             {/* Overview Tab */}
             <TabsContent value="overview" className="p-6">
               <div className="space-y-8">
-                {/* Statistics Cards */}
+                {/* Enhanced Statistics Cards */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                   {[
                     { icon: Briefcase, label: 'Experience', value: stats.experience, color: 'from-blue-500 to-indigo-600' },
@@ -281,33 +296,35 @@ const AdminResume = () => {
                     { icon: Award, label: 'Certifications', value: stats.certifications, color: 'from-yellow-500 to-orange-600' },
                     { icon: Globe, label: 'Languages', value: stats.languages, color: 'from-pink-500 to-rose-600' }
                   ].map((stat, index) => (
-                    <GlassMorphism key={index} className="p-4 rounded-xl border-white/10" intensity="low">
+                    <GlassMorphism key={index} className="group p-4 rounded-xl border-white/20 hover:border-orange-400/40 hover:scale-105 transition-all duration-300 cursor-pointer" intensity="low">
                       <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center`}>
+                        <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg group-hover:shadow-xl group-hover:shadow-current/30`}>
                           <stat.icon className="h-5 w-5 text-white" />
                         </div>
                         <div>
-                          <p className="text-2xl font-bold text-white">{stat.value}</p>
-                          <p className="text-gray-400 text-xs">{stat.label}</p>
+                          <p className="text-2xl font-bold text-black transition-colors duration-300">{stat.value}</p>
+                          <p className="text-black/80 text-xs transition-colors duration-300">{stat.label}</p>
                         </div>
                       </div>
+                      {/* Animated background glow */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-10 rounded-xl transition-all duration-500`} />
                     </GlassMorphism>
                   ))}
                 </div>
 
-                {/* Quick Actions */}
+                {/* Enhanced Quick Actions */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <InteractiveButton
                     variant="secondary"
                     size="lg"
                     ripple={true}
-                    className="w-full justify-start bg-white/10 border-white/20 text-white hover:bg-white/20 p-6"
+                    className="group w-full justify-start bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border-blue-400/30 text-white hover:from-blue-500/20 hover:to-indigo-500/20 hover:border-blue-300/50 hover:shadow-lg hover:shadow-blue-500/25 p-6"
                     onClick={() => window.open('/resume', '_blank')}
                   >
-                    <Eye className="h-5 w-5 mr-3" />
+                    <Eye className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform duration-200 text-black" />
                     <div className="text-left">
-                      <div className="font-semibold">Preview Resume</div>
-                      <div className="text-xs text-gray-400">View live resume page</div>
+                      <div className="font-semibold text-black">Preview Resume</div>
+                      <div className="text-xs text-black/70">View live resume page</div>
                     </div>
                   </InteractiveButton>
                   
@@ -315,13 +332,13 @@ const AdminResume = () => {
                     variant="secondary"
                     size="lg"
                     ripple={true}
-                    className="w-full justify-start bg-white/10 border-white/20 text-white hover:bg-white/20 p-6"
+                    className="group w-full justify-start bg-gradient-to-r from-green-500/10 to-emerald-500/10 border-green-400/30 text-white hover:from-green-500/20 hover:to-emerald-500/20 hover:border-green-300/50 hover:shadow-lg hover:shadow-green-500/25 p-6"
                     onClick={() => window.print()}
                   >
-                    <Download className="h-5 w-5 mr-3" />
+                    <Download className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform duration-200 text-black" />
                     <div className="text-left">
-                      <div className="font-semibold">Print Resume</div>
-                      <div className="text-xs text-gray-400">Generate PDF version</div>
+                      <div className="font-semibold text-black">Print Resume</div>
+                      <div className="text-xs text-black/70">Generate PDF version</div>
                     </div>
                   </InteractiveButton>
                   
@@ -329,32 +346,39 @@ const AdminResume = () => {
                     variant="secondary"
                     size="lg"
                     ripple={true}
-                    className="w-full justify-start bg-white/10 border-white/20 text-white hover:bg-white/20 p-6"
+                    className="group w-full justify-start bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-purple-400/30 text-white hover:from-purple-500/20 hover:to-pink-500/20 hover:border-purple-300/50 hover:shadow-lg hover:shadow-purple-500/25 p-6"
                     onClick={handleExport}
                   >
-                    <FileText className="h-5 w-5 mr-3" />
+                    <FileText className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform duration-200 text-black" />
                     <div className="text-left">
-                      <div className="font-semibold">Export Data</div>
-                      <div className="text-xs text-gray-400">Download JSON backup</div>
+                      <div className="font-semibold text-black">Export Data</div>
+                      <div className="text-xs text-black/70">Download JSON backup</div>
                     </div>
                   </InteractiveButton>
                 </div>
 
-                {/* Recent Experience Preview */}
+                {/* Enhanced Recent Experience Preview */}
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-4">Recent Experience</h3>
+                  <h3 className="text-lg font-semibold text-black mb-4">Recent Experience</h3>
                   <div className="space-y-3">
-                    {(resumeData.experience || []).slice(0, 3).map((job, index) => (
-                      <div key={index} className="flex items-center gap-4 p-4 rounded-xl bg-white/5">
-                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                          <Briefcase className="h-5 w-5 text-white" />
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="text-white font-medium">{job.role}</h4>
-                          <p className="text-gray-400 text-sm">{job.company} • {job.period}</p>
-                        </div>
-                      </div>
-                    ))}
+                    {(resumeData.experience || []).slice(0, 3).map((job, index) => {
+                      const colors = [
+                        'from-blue-500 to-indigo-600',
+                        'from-green-500 to-emerald-600', 
+                        'from-purple-500 to-violet-600'
+                      ];
+                      return (
+                        <GlassMorphism key={index} className="group flex items-center gap-4 p-4 rounded-xl border-white/20 hover:border-orange-400/40 transition-all duration-300 cursor-pointer" intensity="low">
+                          <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${colors[index]} flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg`}>
+                            <Briefcase className="h-5 w-5 text-white" />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="text-black font-medium transition-colors duration-300">{job.role}</h4>
+                            <p className="text-black/70 text-sm transition-colors duration-300">{job.company} • {job.period}</p>
+                          </div>
+                        </GlassMorphism>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -404,6 +428,7 @@ const AdminResume = () => {
           </Tabs>
         </GlassMorphism>
       </ScrollAnimations>
+      </div>
     </div>
   );
 };
@@ -420,78 +445,78 @@ const ProfileEditor = ({ profile, onChange }) => {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold text-white mb-4">Personal Information</h3>
+      <h3 className="text-lg font-semibold text-black mb-4">Personal Information</h3>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <Label htmlFor="name" className="text-white font-semibold mb-2 block">Full Name</Label>
+          <Label htmlFor="name" className="text-black font-semibold mb-2 block">Full Name</Label>
           <Input
             id="name"
             value={formData.name || ''}
             onChange={(e) => handleChange('name', e.target.value)}
-            className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+            className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-orange-300/50 focus:border-orange-300/50 focus:ring-orange-400/20"
           />
         </div>
         
         <div>
-          <Label htmlFor="title" className="text-white font-semibold mb-2 block">Professional Title</Label>
+          <Label htmlFor="title" className="text-black font-semibold mb-2 block">Professional Title</Label>
           <Input
             id="title"
             value={formData.title || ''}
             onChange={(e) => handleChange('title', e.target.value)}
-            className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+            className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-orange-300/50 focus:border-orange-300/50 focus:ring-orange-400/20"
           />
         </div>
         
         <div>
-          <Label htmlFor="email" className="text-white font-semibold mb-2 block">Email</Label>
+          <Label htmlFor="email" className="text-black font-semibold mb-2 block">Email</Label>
           <Input
             id="email"
             type="email"
             value={formData.email || ''}
             onChange={(e) => handleChange('email', e.target.value)}
-            className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+            className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-orange-300/50 focus:border-orange-300/50 focus:ring-orange-400/20"
           />
         </div>
         
         <div>
-          <Label htmlFor="phone" className="text-white font-semibold mb-2 block">Phone</Label>
+          <Label htmlFor="phone" className="text-black font-semibold mb-2 block">Phone</Label>
           <Input
             id="phone"
             value={formData.phone || ''}
             onChange={(e) => handleChange('phone', e.target.value)}
-            className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+            className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-orange-300/50 focus:border-orange-300/50 focus:ring-orange-400/20"
           />
         </div>
         
         <div>
-          <Label htmlFor="location" className="text-white font-semibold mb-2 block">Location</Label>
+          <Label htmlFor="location" className="text-black font-semibold mb-2 block">Location</Label>
           <Input
             id="location"
             value={formData.location || ''}
             onChange={(e) => handleChange('location', e.target.value)}
-            className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+            className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-orange-300/50 focus:border-orange-300/50 focus:ring-orange-400/20"
           />
         </div>
         
         <div>
-          <Label htmlFor="website" className="text-white font-semibold mb-2 block">Website</Label>
+          <Label htmlFor="website" className="text-black font-semibold mb-2 block">Website</Label>
           <Input
             id="website"
             value={formData.website || ''}
             onChange={(e) => handleChange('website', e.target.value)}
-            className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+            className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-orange-300/50 focus:border-orange-300/50 focus:ring-orange-400/20"
           />
         </div>
       </div>
       
       <div>
-        <Label htmlFor="bio" className="text-white font-semibold mb-2 block">Professional Bio</Label>
+        <Label htmlFor="bio" className="text-black font-semibold mb-2 block">Professional Bio</Label>
         <Textarea
           id="bio"
           value={formData.bio || ''}
           onChange={(e) => handleChange('bio', e.target.value)}
-          className="bg-white/10 border-white/20 text-white placeholder-gray-400 min-h-[120px]"
+          className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-orange-300/50 focus:border-orange-300/50 focus:ring-orange-400/20 min-h-[120px]"
         />
       </div>
     </div>
@@ -533,63 +558,70 @@ const ExperienceEditor = ({ experience, onChange }) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-white">Work Experience</h3>
-        <Button onClick={handleAdd} className="bg-indigo-600 hover:bg-indigo-700">
+        <h3 className="text-lg font-semibold text-black">Work Experience</h3>
+        <InteractiveButton
+          variant="gradient"
+          size="sm"
+          ripple={true}
+          onClick={handleAdd}
+          className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+        >
           <Plus className="h-4 w-4 mr-2" />
           Add Experience
-        </Button>
+        </InteractiveButton>
       </div>
       
       <div className="space-y-6">
         {items.map((item, index) => (
-          <GlassMorphism key={item.id} className="p-6 rounded-xl border-white/10" intensity="low">
+          <GlassMorphism key={item.id} className="p-6 rounded-xl border-orange-400/20 hover:border-orange-300/40 transition-all duration-300" intensity="low">
             <div className="flex items-start justify-between mb-4">
-              <h4 className="text-white font-medium">Experience #{index + 1}</h4>
-              <Button
+              <h4 className="text-black font-medium">Experience #{index + 1}</h4>
+              <InteractiveButton
                 variant="ghost"
                 size="sm"
+                ripple={true}
                 onClick={() => handleDelete(index)}
-                className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                className="text-red-400 hover:text-red-300 hover:bg-red-500/20 border border-red-400/30 hover:border-red-300/50"
               >
                 <Trash2 className="h-4 w-4" />
-              </Button>
+              </InteractiveButton>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <Label className="text-white font-semibold mb-2 block">Job Title</Label>
+                <Label className="text-black font-semibold mb-2 block">Job Title</Label>
                 <Input
                   value={item.role || ''}
                   onChange={(e) => handleUpdate(index, 'role', e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+                  className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-white/50 focus:border-orange-300/50 focus:ring-orange-400/20"
                 />
               </div>
               
               <div>
-                <Label className="text-white font-semibold mb-2 block">Company</Label>
+                <Label className="text-black font-semibold mb-2 block">Company</Label>
                 <Input
                   value={item.company || ''}
                   onChange={(e) => handleUpdate(index, 'company', e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+                  className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-white/50 focus:border-orange-300/50 focus:ring-orange-400/20"
                 />
               </div>
               
               <div className="sm:col-span-2">
-                <Label className="text-white font-semibold mb-2 block">Period</Label>
+                <Label className="text-black font-semibold mb-2 block">Period</Label>
                 <Input
                   value={item.period || ''}
                   onChange={(e) => handleUpdate(index, 'period', e.target.value)}
                   placeholder="e.g., Jan 2020 - Present"
-                  className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+                  className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-white/50 focus:border-orange-300/50 focus:ring-orange-400/20"
                 />
               </div>
               
               <div className="sm:col-span-2">
-                <Label className="text-white font-semibold mb-2 block">Description</Label>
+                <Label className="text-black font-semibold mb-2 block">Description</Label>
                 <Textarea
                   value={item.description || ''}
                   onChange={(e) => handleUpdate(index, 'description', e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+                  className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-white/50 focus:border-orange-300/50 focus:ring-orange-400/20"
                 />
               </div>
             </div>
@@ -619,34 +651,34 @@ const SkillsEditor = ({ skills, onChange }) => {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold text-white">Skills & Technologies</h3>
+      <h3 className="text-lg font-semibold text-black">Skills & Technologies</h3>
       
       <div className="space-y-6">
         {categories.map((category, index) => (
-          <GlassMorphism key={index} className="p-6 rounded-xl border-white/10" intensity="low">
+          <GlassMorphism key={index} className="p-6 rounded-xl border-orange-400/20 hover:border-orange-300/40 transition-all duration-300" intensity="low">
             <div className="space-y-4">
               <div>
-                <Label className="text-white font-semibold mb-2 block">Category Name</Label>
+                <Label className="text-black font-semibold mb-2 block">Category Name</Label>
                 <Input
                   value={category.category || ''}
                   onChange={(e) => handleUpdateCategory(index, 'category', e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+                  className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-orange-300/50 focus:border-orange-300/50 focus:ring-orange-400/20"
                 />
               </div>
               
               <div>
-                <Label className="text-white font-semibold mb-2 block">Skills (comma separated)</Label>
+                <Label className="text-black font-semibold mb-2 block">Skills (comma separated)</Label>
                 <Textarea
                   value={(category.skills || []).join(', ')}
                   onChange={(e) => handleUpdateSkills(index, e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+                  className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-orange-300/50 focus:border-orange-300/50 focus:ring-orange-400/20"
                   placeholder="React, Node.js, JavaScript, TypeScript"
                 />
               </div>
               
               <div className="flex flex-wrap gap-2">
                 {(category.skills || []).map((skill, skillIndex) => (
-                  <Badge key={skillIndex} className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30">
+                  <Badge key={skillIndex} className="bg-gradient-to-r from-orange-500/30 to-red-500/30 text-black border-orange-400/50 hover:from-orange-500/40 hover:to-red-500/40 transition-all duration-200">
                     {skill}
                   </Badge>
                 ))}
@@ -673,45 +705,45 @@ const EducationEditor = ({ education, onChange }) => {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold text-white">Education</h3>
+      <h3 className="text-lg font-semibold text-black">Education</h3>
       
       <div className="space-y-6">
         {items.map((item, index) => (
-          <GlassMorphism key={index} className="p-6 rounded-xl border-white/10" intensity="low">
+          <GlassMorphism key={index} className="p-6 rounded-xl border-orange-400/20 hover:border-orange-300/40 transition-all duration-300" intensity="low">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <Label className="text-white font-semibold mb-2 block">Degree</Label>
+                <Label className="text-black font-semibold mb-2 block">Degree</Label>
                 <Input
                   value={item.degree || ''}
                   onChange={(e) => handleUpdate(index, 'degree', e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+                  className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-white/50 focus:border-orange-300/50 focus:ring-orange-400/20"
                 />
               </div>
               
               <div>
-                <Label className="text-white font-semibold mb-2 block">Institution</Label>
+                <Label className="text-black font-semibold mb-2 block">Institution</Label>
                 <Input
                   value={item.institution || ''}
                   onChange={(e) => handleUpdate(index, 'institution', e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+                  className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-white/50 focus:border-orange-300/50 focus:ring-orange-400/20"
                 />
               </div>
               
               <div>
-                <Label className="text-white font-semibold mb-2 block">Year</Label>
+                <Label className="text-black font-semibold mb-2 block">Year</Label>
                 <Input
                   value={item.year || ''}
                   onChange={(e) => handleUpdate(index, 'year', e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+                  className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-white/50 focus:border-orange-300/50 focus:ring-orange-400/20"
                 />
               </div>
               
               <div>
-                <Label className="text-white font-semibold mb-2 block">Location</Label>
+                <Label className="text-black font-semibold mb-2 block">Location</Label>
                 <Input
                   value={item.location || ''}
                   onChange={(e) => handleUpdate(index, 'location', e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder-gray-400"
+                  className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-white/50 focus:border-orange-300/50 focus:ring-orange-400/20"
                 />
               </div>
             </div>
@@ -728,14 +760,14 @@ const OtherEditor = ({ certifications, languages, onCertificationsChange, onLang
     <div className="space-y-8">
       {/* Certifications */}
       <div>
-        <h3 className="text-lg font-semibold text-white mb-4">Certifications</h3>
-        <GlassMorphism className="p-6 rounded-xl border-white/10" intensity="low">
+        <h3 className="text-lg font-semibold text-black mb-4">Certifications</h3>
+        <GlassMorphism className="p-6 rounded-xl border-orange-400/20 hover:border-orange-300/40 transition-all duration-300" intensity="low">
           <div className="space-y-4">
-            <Label className="text-white font-semibold mb-2 block">Certifications (one per line)</Label>
+            <Label className="text-black font-semibold mb-2 block">Certifications (one per line)</Label>
             <Textarea
               value={certifications.join('\n')}
               onChange={(e) => onCertificationsChange(e.target.value.split('\n').filter(cert => cert.trim()))}
-              className="bg-white/10 border-white/20 text-white placeholder-gray-400 min-h-[120px]"
+              className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-white/50 focus:border-orange-300/50 focus:ring-orange-400/20 min-h-[120px]"
               placeholder="AWS Certified Solutions Architect&#10;Google Cloud Professional&#10;Microsoft Azure Fundamentals"
             />
           </div>
@@ -744,14 +776,14 @@ const OtherEditor = ({ certifications, languages, onCertificationsChange, onLang
 
       {/* Languages */}
       <div>
-        <h3 className="text-lg font-semibold text-white mb-4">Languages</h3>
-        <GlassMorphism className="p-6 rounded-xl border-white/10" intensity="low">
+        <h3 className="text-lg font-semibold text-black mb-4">Languages</h3>
+        <GlassMorphism className="p-6 rounded-xl border-orange-400/20 hover:border-orange-300/40 transition-all duration-300" intensity="low">
           <div className="space-y-4">
-            <Label className="text-white font-semibold mb-2 block">Languages (one per line)</Label>
+            <Label className="text-black font-semibold mb-2 block">Languages (one per line)</Label>
             <Textarea
               value={languages.join('\n')}
               onChange={(e) => onLanguagesChange(e.target.value.split('\n').filter(lang => lang.trim()))}
-              className="bg-white/10 border-white/20 text-white placeholder-gray-400 min-h-[120px]"
+              className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 text-white placeholder-white/50 focus:border-orange-300/50 focus:ring-orange-400/20 min-h-[120px]"
               placeholder="English (Native)&#10;Spanish (Fluent)&#10;French (Intermediate)"
             />
           </div>

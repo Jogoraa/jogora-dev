@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "./components/ui/toaster";
 import { AuthProvider } from "./contexts/AuthContext";
 import "./App.css";
@@ -33,6 +33,7 @@ function App() {
           
           {/* Admin Routes - With Admin Layout */}
           <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Navigate to="/admin/dashboard" replace />} />
             <Route path="dashboard" element={<AdminDashboardContent />} />
             <Route path="projects" element={<AdminProjectsContent />} />
             <Route path="resume" element={<AdminResume />} />

@@ -317,7 +317,7 @@ const Home = () => {
 
           {/* Insane Project Showcase */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 mb-16 sm:mb-24 px-4">
-            {featuredProjects.map((project, index) => (
+            {featuredProjects && featuredProjects.length > 0 ? featuredProjects.map((project, index) => (
               <ScrollAnimations 
                 key={project.id}
                 animation="fade-in-up"
@@ -403,7 +403,7 @@ const Home = () => {
                         Technology Stack
                       </h4>
                       <div className="flex flex-wrap gap-2 sm:gap-3">
-                        {project.technologies.map((tech, techIndex) => (
+                        {project.technologies && project.technologies.length > 0 ? project.technologies.map((tech, techIndex) => (
                           <div 
                             key={tech}
                             className="group/tech relative"
@@ -414,7 +414,9 @@ const Home = () => {
                               {tech}
                             </span>
                           </div>
-                        ))}
+                        )) : (
+                          <span className="text-gray-400 text-sm">No technologies listed</span>
+                        )}
                       </div>
                     </div>
 
@@ -448,7 +450,15 @@ const Home = () => {
                   </div>
                 </div>
               </ScrollAnimations>
-            ))}
+            )) : (
+              <div className="col-span-full text-center py-16">
+                <div className="text-gray-400 mb-4">
+                  <Code className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                  <p className="text-lg">No featured projects available</p>
+                  <p className="text-sm">Projects will appear here once they are added to the database.</p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Epic Stats Section */}
@@ -540,7 +550,7 @@ const Home = () => {
 
           {/* Enhanced Skills Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-12 sm:mb-16">
-            {skills.map((category, index) => (
+            {skills && skills.length > 0 ? skills.map((category, index) => (
               <ScrollAnimations 
                 key={category.category}
                 animation="fade-in-up"
@@ -565,7 +575,7 @@ const Home = () => {
 
                   {/* Skills List */}
                   <div className="space-y-2 sm:space-y-3 lg:space-y-4">
-                    {category.items.map((skill, skillIndex) => (
+                    {category.items && category.items.length > 0 ? category.items.map((skill, skillIndex) => (
                       <div 
                         key={skill}
                         className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-white/5 hover:bg-white/10 transition-all duration-300 group/skill"
@@ -582,14 +592,24 @@ const Home = () => {
                           />
                         </div>
                       </div>
-                    ))}
+                    )) : (
+                      <div className="text-gray-400 text-sm">No skills listed</div>
+                    )}
                   </div>
 
                   {/* Hover Effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
                 </GlassMorphism>
               </ScrollAnimations>
-            ))}
+            )) : (
+              <div className="col-span-full text-center py-16">
+                <div className="text-gray-400 mb-4">
+                  <Code className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                  <p className="text-lg">No skills available</p>
+                  <p className="text-sm">Skills will appear here once they are added to the database.</p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Technology Showcase */}
@@ -614,41 +634,58 @@ const Home = () => {
 
       {/* Premium Experience Section */}
       <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        {/* Enhanced Background */}
+        {/* EPIC Dark Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/30 via-transparent to-purple-100/30" />
-          <div className="absolute inset-0" style={{
-            backgroundImage: `
-              radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 40% 60%, rgba(168, 85, 247, 0.05) 0%, transparent 50%)
-            `
-          }} />
-          <div className="absolute inset-0" style={{
-            backgroundImage: `
-              linear-gradient(30deg, transparent 40%, rgba(34, 197, 94, 0.03) 40%, rgba(34, 197, 94, 0.03) 60%, transparent 60%),
-              linear-gradient(-30deg, transparent 40%, rgba(59, 130, 246, 0.03) 40%, rgba(59, 130, 246, 0.03) 60%, transparent 60%)
-            `,
-            backgroundSize: '100px 100px'
-          }} />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-black" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 via-transparent to-purple-900/20" />
+          
+          {/* Animated Mesh Gradient */}
+          <div className="absolute inset-0 opacity-40">
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-600/30 via-purple-600/20 to-pink-600/30 animate-gradient-shift" />
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tl from-cyan-500/20 via-transparent to-violet-500/20 animate-gradient-shift" style={{ animationDelay: '2s' }} />
+          </div>
+
+          {/* Floating Orbs */}
+          <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-3xl animate-float" />
+          <div className="absolute top-40 right-32 w-80 h-80 bg-gradient-to-r from-purple-500/15 to-pink-500/15 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
+          <div className="absolute bottom-32 left-1/3 w-96 h-96 bg-gradient-to-r from-violet-500/10 to-indigo-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+
+          {/* Grid Pattern Overlay */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: '50px 50px'
+            }} />
+          </div>
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          {/* Section Header */}
+          {/* EPIC Section Header */}
           <ScrollAnimations animation="fade-in-up" delay={0}>
-            <div className="text-center mb-12 sm:mb-16 lg:mb-20 px-4">
-              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-blue-100/50 text-blue-700 text-xs sm:text-sm font-medium mb-4 sm:mb-6">
-                <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4" />
-                Career Journey
+            <div className="text-center mb-16 sm:mb-24 lg:mb-32 px-4">
+              <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10 text-white text-xs sm:text-sm font-medium mb-6 sm:mb-8">
+                <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse" />
+                <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 animate-bounce-subtle" />
+                <span className="hidden sm:inline">Career Journey</span>
+                <span className="sm:hidden">Journey</span>
+                <Award className="h-4 w-4 sm:h-5 sm:w-5 animate-wiggle" />
               </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-gray-900 mb-4 sm:mb-6">
-                <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                  Professional Experience
+              
+              <h2 className="text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-black tracking-tight text-white mb-6 sm:mb-8 leading-none">
+                <span className="bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent animate-gradient bg-300%">
+                  PROFESSIONAL
+                </span>
+                <br />
+                <span className="bg-gradient-to-r from-purple-200 via-pink-200 to-cyan-200 bg-clip-text text-transparent animate-gradient bg-300%" style={{ animationDelay: '1s' }}>
+                  EXPERIENCE
                 </span>
               </h2>
-              <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                {experience.length}+ years of delivering exceptional results across diverse projects and technologies
+              
+              <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
+                3+ years of delivering exceptional results across diverse projects and cutting-edge technologies
               </p>
             </div>
           </ScrollAnimations>

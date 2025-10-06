@@ -366,30 +366,50 @@ const AdminProjectsContent = () => {
                     </div>
                   </div>
 
-                  {/* Project Links */}
-                  <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-                    {project.githubUrl && (
-                      <a 
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-200"
+                  {/* Enhanced Project Links */}
+                  <div className="space-y-3 pt-4 border-t border-white/10">
+                    {/* Primary Action - View Project */}
+                    <Link 
+                      to={`/projects/${project.slug || project.id}`}
+                      className="flex items-center justify-center gap-2 w-full py-2 px-4 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 hover:from-indigo-500/30 hover:to-purple-500/30 border border-indigo-400/30 hover:border-indigo-300/50 rounded-lg text-indigo-100 hover:text-white transition-all duration-200 group"
+                    >
+                      <Eye className="h-4 w-4 group-hover:scale-110 transition-transform duration-200" />
+                      <span className="text-sm font-medium">View Project Details</span>
+                    </Link>
+                    
+                    {/* Secondary Links */}
+                    <div className="flex items-center gap-3">
+                      {project.githubUrl && (
+                        <a 
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 group"
+                        >
+                          <Github className="h-4 w-4 group-hover:scale-110 transition-transform duration-200" />
+                          <span className="text-sm">Code</span>
+                        </a>
+                      )}
+                      {project.liveUrl && (
+                        <a 
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 group"
+                        >
+                          <ExternalLink className="h-4 w-4 group-hover:scale-110 transition-transform duration-200" />
+                          <span className="text-sm">Live Site</span>
+                        </a>
+                      )}
+                      {/* Portfolio Link */}
+                      <Link 
+                        to="/projects"
+                        className="flex items-center gap-2 text-gray-400 hover:text-indigo-300 transition-colors duration-200 group ml-auto"
                       >
-                        <Github className="h-4 w-4" />
-                        <span className="text-sm">Code</span>
-                      </a>
-                    )}
-                    {project.liveUrl && (
-                      <a 
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-200"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                        <span className="text-sm">Live</span>
-                      </a>
-                    )}
+                        <Star className="h-4 w-4 group-hover:scale-110 transition-transform duration-200" />
+                        <span className="text-sm">All Projects</span>
+                      </Link>
+                    </div>
                   </div>
                 </GlassMorphism>
               </ScrollAnimations>
